@@ -1,4 +1,4 @@
-# app_cascade.py — NetSafe Cascade Viewer (strict graph types + robust filename parsing)
+# app_cascade.py — Cascade Viewer (strict graph types + robust filename parsing)
 import os, time, glob, re
 import numpy as np
 import pandas as pd
