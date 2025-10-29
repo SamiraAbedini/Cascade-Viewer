@@ -203,7 +203,7 @@ def plot_network(G, pos, raw_probs, round_idx, vmin, vmax, scenario, attackers):
     )
     return fig
 
-def plot_lines(df, current_round):
+def plot_lines(df, current_round, max_round):
     pivot = df.pivot_table(index="round", columns="agent",
                            values="infected_prob", aggfunc="mean").sort_index()
     pivot["system_avg"] = pivot.mean(axis=1)
@@ -212,7 +212,7 @@ def plot_lines(df, current_round):
         markers=True, template="plotly_dark",
         title="Infection probability per node + system average",
         range_y=[0, 1],  # ✅ Fix y-axis to 0–1
-        range_x=[0, 20]  # ✅ Fix x-axis to 0–20 rounds
+        range_x=[0, max_round]  # ✅ Adaptive x-axis based on data
     )
     fig.add_vline(x=current_round, line_width=2, line_dash="dash", line_color="#f6e05e")
     fig.update_layout(
@@ -363,7 +363,7 @@ def main():
         for a in range(parsed_n):
             raw_probs.setdefault(a, 0.0)
         net_fig = plot_network(G, pos, raw_probs, r, vmin, vmax, scenario, attackers)
-        line_fig = plot_lines(df, r)
+        line_fig = plot_lines(df, r, max_r)
         net_ph.plotly_chart(net_fig, use_container_width=True)
         line_ph.plotly_chart(line_fig, use_container_width=True)
 
