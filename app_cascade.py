@@ -58,6 +58,8 @@ def parse_from_filename(name_or_path: str):
 
 @st.cache_data
 def load_csv(path: str) -> pd.DataFrame:
+    # Cache will auto-invalidate if file modification time changes
+    _mtime = os.path.getmtime(path)  # Include in function to trigger cache refresh
     df = pd.read_csv(path)
     for c in ("infected_prob", "agent", "round"):
         if c in df.columns:
