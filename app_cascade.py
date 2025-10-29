@@ -209,7 +209,8 @@ def plot_lines(df, current_round):
         pivot.reset_index(), x="round", y=list(pivot.columns),
         markers=True, template="plotly_dark",
         title="Infection probability per node + system average",
-        range_y=[0, 1]  # ✅ Fix y-axis to 0–1
+        range_y=[0, 1],  # ✅ Fix y-axis to 0–1
+        range_x=[0, 20]  # ✅ Fix x-axis to 0–20 rounds
     )
     fig.add_vline(x=current_round, line_width=2, line_dash="dash", line_color="#f6e05e")
     fig.update_layout(
